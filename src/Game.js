@@ -14,12 +14,8 @@ function Game(props) {
         } else {
             setBlockLocation(Math.floor(Math.random() * -200));
         }
-        console.log("CURR SCORE LOOP: " + props.currScore);
     }, 1000 / FPS, true);
 
-    useEffect(() => {
-
-    }, [props.score]);
 
     function checkOverlap(box1, box2){
         return !(
@@ -50,9 +46,6 @@ function Game(props) {
             const domIncomingBlock = el2.getBoundingClientRect();
             if(checkOverlap(domTarget, domIncomingBlock)){
                 var score = calculateScore(domTarget, domIncomingBlock) * 10;
-                console.log(score);
-                console.log("Attempt score" + score)
-                console.log("handleButtonPress currScore: " + props.currScore);
                 props.reportScore(props.currScore + score);
                 setSuccess(true);
             }else{
@@ -63,7 +56,6 @@ function Game(props) {
     }, [props.currScore]);
 
     function reportScore(score){
-        console.log("client report fucntion");
         props.reportScore(props.currScore + score);
     }
 
