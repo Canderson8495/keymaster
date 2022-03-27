@@ -7,6 +7,8 @@ function App() {
   const [totalScore, setTotalScore] = useState(0);
   const [indivScore, setIndivScore] = useState(0);
 
+  const arr = ['W','A','S'];
+
   const reportScore = (score) => {
     setIndivScore(score);
   };
@@ -21,36 +23,16 @@ function App() {
       <div className = "Container">
         <h1> {Math.round(totalScore)} </h1>
         <div className="GameHolder">
-          <Game
-            letter="A"
-            speed={25}
-            reportScore={reportScore}
-            currScore={totalScore}
-          />
-          <Game
-            letter="G"
-            speed={50}
-            reportScore={reportScore}
-            currScore={totalScore}
-          />
-          <Game
-            letter="F"
-            speed={50}
-            reportScore={reportScore}
-            currScore={totalScore}
-          />
-          <Game
-            letter="Z"
-            speed={50}
-            reportScore={reportScore}
-            currScore={totalScore}
-          />
-          <Game
-            letter="Q"
-            speed={50}
-            reportScore={reportScore}
-            currScore={totalScore}
-          />
+          {
+            arr.map(letter => (
+            <Game
+              letter={letter}
+              speed={75}
+              reportScore={reportScore}
+              currScore={totalScore}
+            />
+            ))
+          } 
         </div>
       </div>
     </div>

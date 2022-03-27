@@ -7,7 +7,7 @@ function Game(props) {
     const [blockLocation, setBlockLocation] = useState(Math.random() * -200);
     const [success, setSuccess] = useState(false);
     const DELAYMAX = 3000;
-    const FPS = 30;
+    const FPS = 144;
     useInterval(() => {
         if (blockLocation < 100) {
             setBlockLocation(blockLocation + props.speed / FPS);
@@ -68,7 +68,7 @@ function Game(props) {
     }, []);
 
     return (
-        <div id={props.currScore} className="Game">
+        <div className="Game">
             <div id={props.letter + " IncomingBlock"} className="IncomingBlock" style={{ top: blockLocation.toString() + "%" }}>
                 <p className="BlockText"> {props.letter} </p>
             </div>
