@@ -1,0 +1,32 @@
+
+  .Game {
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, .1);
+    width: 100px;
+    margin: 1vh;
+    position: relative;
+  }
+  
+  .Target {
+    position: absolute;
+    width: -moz-available;
+    height: 100px;
+    bottom: 5vh;
+    border: 3px solid #73AD21;
+    border-radius: 5px;
+    text-align: center;
+  }
+
+  .IncomingBlock {
+    position: absolute;
+    width: -moz-available;
+    height: 100px;
+    border: 3px solid #73AD21;
+    border-radius: 5px;
+  }
+
+  .BlockText {
+      height: 100%;
+      margin: 0;
+      line-height: 100px;
+  }
