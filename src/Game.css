@@ -30,3 +30,18 @@
       margin: 0;
       line-height: 100px;
   }
+
+  .win {
+    animation: glowGreen 1s infinite;
+  }
+
+  .lose{
+    animation: glowGreen 1s infinite;
+
+  }
+
+  @keyframes glowGreen {
+    0% {background-color: rgba(0, 0, 0, 0);}
+    50% {background-color: green;}
+    100% {background-color: rgba(0, 0, 0, 0);}
+  }
