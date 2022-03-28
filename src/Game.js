@@ -2,10 +2,13 @@ import './Game.css';
 import React, { useState, useEffect, useCallback } from 'react';
 import useInterval from 'use-interval'
 import { selectOptions } from '@testing-library/user-event/dist/select-options';
+import { CSSTransition } from 'react-transition-group'
 
 function Game(props) {
     const [blockLocation, setBlockLocation] = useState(Math.random() * -200);
+    const [reset, setReset] = useState(false);
     const [success, setSuccess] = useState(false);
+    const [inProp, setInProp] = useState(false);
     const DELAYMAX = 3000;
     const FPS = 144;
     useInterval(() => {
@@ -17,16 +20,16 @@ function Game(props) {
     }, 1000 / FPS, true);
 
 
-    function checkOverlap(box1, box2){
+    function checkOverlap(box1, box2) {
         return !(
             box1.top > box2.bottom ||
             box1.right < box2.left ||
             box1.bottom < box2.top ||
             box1.left > box2.right
-          );
+        );
     }
 
-    function calculateScore(box1, box2){
+    function calculateScore(box1, box2) {
         const top = Math.max(box1.top, box2.top);
         const bottom = Math.min(box1.bottom, box2.bottom);
         const left = Math.max(box1.left, box2.left);
@@ -44,18 +47,20 @@ function Game(props) {
             var el2 = document.getElementById(props.letter + " IncomingBlock")
             const domTarget = el1.getBoundingClientRect();
             const domIncomingBlock = el2.getBoundingClientRect();
-            if(checkOverlap(domTarget, domIncomingBlock)){
+            if (checkOverlap(domTarget, domIncomingBlock)) {
                 var score = calculateScore(domTarget, domIncomingBlock) * 10;
                 props.reportScore(props.currScore + score);
+                setReset(false);
                 setSuccess(true);
-            }else{
+            } else {
+                setReset(false);
                 setSuccess(false);
             }
             setBlockLocation(Math.floor(Math.random() * -200));
         }
     }, [props.currScore]);
 
-    function reportScore(score){
+    function reportScore(score) {
         props.reportScore(props.currScore + score);
     }
 
@@ -67,15 +72,21 @@ function Game(props) {
         };
     }, []);
 
+    const toggleFeedback = () => {
+        setTimeout(() => setReset(true), 500);
+        return success ? "win" : "lose";
+      };
+
     return (
         <div className="Game">
             <div id={props.letter + " IncomingBlock"} className="IncomingBlock" style={{ top: blockLocation.toString() + "%" }}>
                 <p className="BlockText"> {props.letter} </p>
             </div>
-            <div id={props.letter + " Target"} className={"Target " + (success ? "win" : "lose")}>
-                <p className="BlockText"> {props.letter} </p>
-            </div>
-        
+                <div id={props.letter + " Target"} className={"Target " +  (reset ? "" : toggleFeedback())}>
+                    
+                    <p className="BlockText"> {props.letter} </p>
+                </div> 
+
         </div>
     );
 }
