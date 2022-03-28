@@ -1,12 +1,18 @@
 import logo from './logo.svg';
-import './App.css';
+import './GameHolder.css';
 import Game from './Game';
 import React, { useCallback, useEffect, useState } from 'react';
 import { NuiProvider } from "fivem-nui-react-lib";
+import {
+    useNuiEvent,
+    useNuiCallback,
+    useNuiRequest,
+  } from "fivem-nui-react-lib";
 
 function GameHolder() {
     const [totalScore, setTotalScore] = useState(0);
     const [indivScore, setIndivScore] = useState(0);
+    const [started, setStarted] = useState(false);
 
     const arr = ['W', 'A', 'S'];
     const winScore = 50;
@@ -14,6 +20,8 @@ function GameHolder() {
     const reportScore = (score) => {
         setIndivScore(score);
     };
+
+    //useNuiEvent("keymaster", "start", setStarted);
 
     useEffect(() => {
         setTotalScore(totalScore + indivScore);
@@ -27,6 +35,7 @@ function GameHolder() {
 
 
     return (
+        started && (
         <div className="Container">
             <h1> {Math.round(totalScore)} </h1>
             <div className="GameHolder">
@@ -42,6 +51,7 @@ function GameHolder() {
                 }
             </div>
         </div>
+        )
     );
 }
 

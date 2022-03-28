@@ -7,7 +7,7 @@ import { NuiProvider } from "fivem-nui-react-lib";
 function App() {
 
   return (
-    <NuiProvider resource="my-resource-name">
+    <NuiProvider resource="keymaster">
       <div className="App">
         <GameHolder />
       </div>
