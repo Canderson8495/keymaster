@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+
 import './App.css';
 import GameHolder from './GameHolder';
 import React, { useCallback, useEffect, useState } from 'react';

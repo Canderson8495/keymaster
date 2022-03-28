@@ -21,16 +21,20 @@ function GameHolder() {
         setIndivScore(score);
     };
 
-    //useNuiEvent("keymaster", "start", setStarted);
+    useNuiEvent("keymaster", "start", setStarted);
 
     useEffect(() => {
         setTotalScore(totalScore + indivScore);
     }, [indivScore]);
 
+    const { send } = useNuiRequest();
     useEffect(() => {
         if (totalScore >= winScore) {
-            alert('You Win!');
+            //success
+            send("success");
+            setStarted(false);
         }
+        //fail
     }, [totalScore]);
 
 

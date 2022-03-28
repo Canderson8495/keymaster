@@ -83,7 +83,6 @@ function Game(props) {
                 <p className="BlockText"> {props.letter} </p>
             </div>
                 <div id={props.letter + " Target"} className={"Target " +  (reset ? "" : toggleFeedback())}>
-                    
                     <p className="BlockText"> {props.letter} </p>
                 </div> 
 
