@@ -10,14 +10,16 @@ function Game(props) {
     const [success, setSuccess] = useState(false);
     const [inProp, setInProp] = useState(false);
     const DELAYMAX = 3000;
-    const FPS = 144;
+    const FPS = 30;
+
     useInterval(() => {
         if (blockLocation < 100) {
-            setBlockLocation(blockLocation + props.speed / FPS);
+            setBlockLocation(blockLocation + props.speed / props.fps);
         } else {
             setBlockLocation(Math.floor(Math.random() * -200));
+            props.reportScore(props.missScore+Math.random()*.001);
         }
-    }, 1000 / FPS, true);
+    }, 1000 / props.fps, true);
 
 
     function checkOverlap(box1, box2) {
@@ -49,10 +51,12 @@ function Game(props) {
             const domIncomingBlock = el2.getBoundingClientRect();
             if (checkOverlap(domTarget, domIncomingBlock)) {
                 var score = calculateScore(domTarget, domIncomingBlock) * 10;
-                props.reportScore(props.currScore + score);
+                props.reportScore(score);
                 setReset(false);
                 setSuccess(true);
             } else {
+                var score = props.missScore+Math.random()*.001;
+                props.reportScore(score);
                 setReset(false);
                 setSuccess(false);
             }
@@ -60,9 +64,6 @@ function Game(props) {
         }
     }, [props.currScore]);
 
-    function reportScore(score) {
-        props.reportScore(props.currScore + score);
-    }
 
     useEffect(() => {
         document.addEventListener("keydown", handleButtonPress, false);
@@ -85,7 +86,6 @@ function Game(props) {
                 <div id={props.letter + " Target"} className={"Target " +  (reset ? "" : toggleFeedback())}>
                     <p className="BlockText"> {props.letter} </p>
                 </div> 
-
         </div>
     );
 }
